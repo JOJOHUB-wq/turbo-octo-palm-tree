@@ -1,0 +1,27 @@
+name: AtheriumEnchants
+version: '3.0'
+main: ua.etherium.AtheriumEnchants
+api-version: '1.21'
+author: oleze_bebidjonov
+softdepend: [Vault]
+commands:
+  atheriumenchants:
+    description: Главная команда плагина
+    usage: /atheriumenchants <menu|give|enchant|reload>
+    aliases: [ate, ce]
+permissions:
+  atheriumenchants.admin:
+    description: Полный доступ к плагину
+    default: op
+  atheriumenchants.menu:
+    description: Открыть меню зачарований
+    default: true
+  atheriumenchants.give:
+    description: Выдать книгу зачарования
+    default: op
+  atheriumenchants.enchant:
+    description: Зачаровать предмет в руке
+    default: op
+  atheriumenchants.reload:
+    description: Перезагрузить конфиги
+    default: op

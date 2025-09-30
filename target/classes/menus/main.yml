@@ -1,0 +1,28 @@
+# Main menu configuration
+title: "Atherium Enchants"
+size: 27
+items:
+  weapon:
+    material: DIAMOND_SWORD
+    slot: 11
+    display_name: "&aWeapon Enchants"
+    lore:
+      - "&7Click to view weapon enchantments."
+    actions:
+      - "open_menu: weapon"
+  tools:
+    material: DIAMOND_PICKAXE
+    slot: 13
+    display_name: "&aTool Enchants"
+    lore:
+      - "&7Click to view tool enchantments."
+    actions:
+      - "open_menu: tools"
+  armor:
+    material: DIAMOND_CHESTPLATE
+    slot: 15
+    display_name: "&aArmor Enchants"
+    lore:
+      - "&7Click to view armor enchantments."
+    actions:
+      - "open_menu: armor"
