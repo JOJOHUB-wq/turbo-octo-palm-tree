@@ -1,12 +1,12 @@
 # ============================================
-#       Меню зачарований на оружие
+#         Меню зачарований на лук
 # ============================================
-title: "&8Atherium: &cОружие"
+title: "&8Atherium: &eЛуки и Арбалеты"
 size: 54
 
 # Декоративные элементы
 fill_item:
-  material: "RED_STAINED_GLASS_PANE"
+  material: "YELLOW_STAINED_GLASS_PANE"
   display_name: " "
 
 items:

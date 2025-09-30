@@ -1,28 +1,63 @@
-# Main menu configuration
-title: "Atherium Enchants"
+# ============================================
+#       Главное меню зачарований
+# ============================================
+title: "&8Atherium: &0Выберите категорию"
 size: 27
+
+# Декоративные элементы
+fill_item:
+  material: "BLACK_STAINED_GLASS_PANE"
+  display_name: " "
+
 items:
+  # Категория: Оружие
   weapon:
-    material: DIAMOND_SWORD
-    slot: 11
-    display_name: "&aWeapon Enchants"
+    material: "DIAMOND_SWORD"
+    slot: 10
+    display_name: "&c&lЗачарования на Оружие"
     lore:
-      - "&7Click to view weapon enchantments."
+      - "&7Нажмите, чтобы увидеть зачарования"
+      - "&7для мечей и топоров."
+      - ""
+      - "&e▶ Клик для открытия"
     actions:
-      - "open_menu: weapon"
+      - "open_menu:weapon"
+
+  # Категория: Инструменты
   tools:
-    material: DIAMOND_PICKAXE
-    slot: 13
-    display_name: "&aTool Enchants"
+    material: "DIAMOND_PICKAXE"
+    slot: 12
+    display_name: "&b&lЗачарования на Инструменты"
     lore:
-      - "&7Click to view tool enchantments."
+      - "&7Нажмите, чтобы увидеть зачарования"
+      - "&7для кирок, топоров, лопат."
+      - ""
+      - "&e▶ Клик для открытия"
     actions:
-      - "open_menu: tools"
+      - "open_menu:tools"
+
+  # Категория: Броня
   armor:
-    material: DIAMOND_CHESTPLATE
-    slot: 15
-    display_name: "&aArmor Enchants"
+    material: "DIAMOND_CHESTPLATE"
+    slot: 14
+    display_name: "&a&lЗачарования на Броню"
     lore:
-      - "&7Click to view armor enchantments."
+      - "&7Нажмите, чтобы увидеть зачарования"
+      - "&7для всех типов брони."
+      - ""
+      - "&e▶ Клик для открытия"
     actions:
-      - "open_menu: armor"
+      - "open_menu:armor"
+
+  # Категория: Луки
+  bow:
+    material: "BOW"
+    slot: 16
+    display_name: "&e&lЗачарования на Лук"
+    lore:
+      - "&7Нажмите, чтобы увидеть зачарования"
+      - "&7для луков и арбалетов."
+      - ""
+      - "&e▶ Клик для открытия"
+    actions:
+      - "open_menu:bow"

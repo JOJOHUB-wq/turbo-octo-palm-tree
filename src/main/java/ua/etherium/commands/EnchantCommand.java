@@ -25,7 +25,7 @@ public class EnchantCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (args.length == 0) {
-            sender.sendMessage(ColorUtils.color("&#FF6600Использование: /ate <menu|give|enchant|reload>"));
+            sender.sendMessage(ColorUtils.color("&#FF6600Использование: /" + label + " <menu|give|enchant|reload>"));
             return true;
         }
 
@@ -33,27 +33,27 @@ public class EnchantCommand implements CommandExecutor {
             case "menu":
                 return handleMenu(sender);
             case "give":
-                return handleGive(sender, args);
+                return handleGive(sender, args, label);
             case "enchant":
-                return handleEnchant(sender, args);
+                return handleEnchant(sender, args, label);
             case "reload":
                 return handleReload(sender);
             default:
-                sender.sendMessage(ColorUtils.color("&#FF0000Неизвестная команда!"));
+                sender.sendMessage(ColorUtils.color("&#FF0000Неизвестная подкоманда. Используйте /" + label + " <menu|give|enchant|reload>"));
                 return true;
         }
     }
 
     private boolean handleMenu(CommandSender sender) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ColorUtils.color("&#FF0000Команда только для игроков!"));
+            sender.sendMessage(ColorUtils.color("&#FF0000Эта команда только для игроков."));
             return true;
         }
 
         Player player = (Player) sender;
 
         if (!player.hasPermission("atheriumenchants.menu")) {
-            player.sendMessage(ColorUtils.color("&#FF0000У вас нет прав!"));
+            player.sendMessage(ColorUtils.color("&#FF0000У вас нет прав для выполнения этой команды."));
             return true;
         }
 
@@ -61,20 +61,20 @@ public class EnchantCommand implements CommandExecutor {
         return true;
     }
 
-    private boolean handleGive(CommandSender sender, String[] args) {
+    private boolean handleGive(CommandSender sender, String[] args, String label) {
         if (!sender.hasPermission("atheriumenchants.give")) {
-            sender.sendMessage(ColorUtils.color("&#FF0000У вас нет прав!"));
+            sender.sendMessage(ColorUtils.color("&#FF0000У вас нет прав для выполнения этой команды."));
             return true;
         }
 
         if (args.length < 3) {
-            sender.sendMessage(ColorUtils.color("&#FF6600Использование: /ate give <игрок> <зачарование> [уровень]"));
+            sender.sendMessage(ColorUtils.color("&#FF6600Использование: /" + label + " give <игрок> <зачарование> [уровень]"));
             return true;
         }
 
         Player target = Bukkit.getPlayer(args[1]);
         if (target == null) {
-            sender.sendMessage(ColorUtils.color("&#FF0000Игрок не найден!"));
+            sender.sendMessage(ColorUtils.color("&#FF0000Игрок '" + args[1] + "' не найден."));
             return true;
         }
 
@@ -82,7 +82,7 @@ public class EnchantCommand implements CommandExecutor {
         CustomEnchant enchant = plugin.getEnchantManager().getEnchant(enchantKey);
 
         if (enchant == null) {
-            sender.sendMessage(ColorUtils.color("&#FF0000Зачарование не найдено!"));
+            sender.sendMessage(ColorUtils.color("&#FF0000Зачарование '" + enchantKey + "' не найдено."));
             return true;
         }
 
@@ -91,7 +91,7 @@ public class EnchantCommand implements CommandExecutor {
             try {
                 level = Integer.parseInt(args[3]);
             } catch (NumberFormatException e) {
-                sender.sendMessage(ColorUtils.color("&#FF0000Неверный уровень!"));
+                sender.sendMessage(ColorUtils.color("&#FF0000Неверный уровень. Укажите число."));
                 return true;
             }
         }
@@ -104,32 +104,32 @@ public class EnchantCommand implements CommandExecutor {
         ItemStack book = enchant.createEnchantedBook(level);
         target.getInventory().addItem(book);
 
-        sender.sendMessage(ColorUtils.color("&#29FF1DВыдана книга зачарования!"));
-        target.sendMessage(ColorUtils.color("&#29FF1DВы получили книгу зачарования!"));
+        sender.sendMessage(ColorUtils.color("&#29FF1DВы выдали книгу '" + enchant.getName() + " " + level + "' игроку " + target.getName()));
+        target.sendMessage(ColorUtils.color("&#29FF1DВы получили книгу зачарования: " + enchant.getName()));
         return true;
     }
 
-    private boolean handleEnchant(CommandSender sender, String[] args) {
+    private boolean handleEnchant(CommandSender sender, String[] args, String label) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ColorUtils.color("&#FF0000Команда только для игроков!"));
+            sender.sendMessage(ColorUtils.color("&#FF0000Эта команда только для игроков."));
             return true;
         }
 
         Player player = (Player) sender;
 
         if (!player.hasPermission("atheriumenchants.enchant")) {
-            player.sendMessage(ColorUtils.color("&#FF0000У вас нет прав!"));
+            player.sendMessage(ColorUtils.color("&#FF0000У вас нет прав для выполнения этой команды."));
             return true;
         }
 
         if (args.length < 2) {
-            player.sendMessage(ColorUtils.color("&#FF6600Использование: /ate enchant <зачарование> [уровень]"));
+            player.sendMessage(ColorUtils.color("&#FF6600Использование: /" + label + " enchant <зачарование> [уровень]"));
             return true;
         }
 
         ItemStack item = player.getInventory().getItemInMainHand();
         if (item.getType().isAir()) {
-            player.sendMessage(ColorUtils.color("&#FF0000Возьмите предмет в руку!"));
+            player.sendMessage(ColorUtils.color("&#FF0000Возьмите предмет в руку, чтобы зачаровать его."));
             return true;
         }
 
@@ -137,12 +137,12 @@ public class EnchantCommand implements CommandExecutor {
         CustomEnchant enchant = plugin.getEnchantManager().getEnchant(enchantKey);
 
         if (enchant == null) {
-            player.sendMessage(ColorUtils.color("&#FF0000Зачарование не найдено!"));
+            player.sendMessage(ColorUtils.color("&#FF0000Зачарование '" + enchantKey + "' не найдено."));
             return true;
         }
 
         if (!enchant.canApplyTo(item)) {
-            player.sendMessage(ColorUtils.color("&#FF0000Нельзя наложить это зачарование на данный предмет!"));
+            player.sendMessage(ColorUtils.color("&#FF0000Это зачарование нельзя наложить на данный предмет."));
             return true;
         }
 
@@ -151,7 +151,7 @@ public class EnchantCommand implements CommandExecutor {
             try {
                 level = Integer.parseInt(args[2]);
             } catch (NumberFormatException e) {
-                player.sendMessage(ColorUtils.color("&#FF0000Неверный уровень!"));
+                player.sendMessage(ColorUtils.color("&#FF0000Неверный уровень. Укажите число."));
                 return true;
             }
         }
@@ -161,23 +161,21 @@ public class EnchantCommand implements CommandExecutor {
             return true;
         }
 
-        ItemStack enchanted = enchant.applyToItem(item, level);
-        player.getInventory().setItemInMainHand(enchanted);
-        player.sendMessage(ColorUtils.color("&#29FF1DПредмет зачарован!"));
+        enchant.applyToItem(item, level);
+        player.sendMessage(ColorUtils.color("&#29FF1DПредмет успешно зачарован!"));
         return true;
     }
 
     private boolean handleReload(CommandSender sender) {
         if (!sender.hasPermission("atheriumenchants.reload")) {
-            sender.sendMessage(ColorUtils.color("&#FF0000У вас нет прав!"));
+            sender.sendMessage(ColorUtils.color("&#FF0000У вас нет прав для выполнения этой команды."));
             return true;
         }
 
-        plugin.reloadConfig();
         plugin.getConfigManager().reload();
         plugin.getEnchantManager().loadEnchants();
 
-        sender.sendMessage(ColorUtils.color("&#29FF1DКонфиги перезагружены!"));
+        sender.sendMessage(ColorUtils.color("&#29FF1DКонфигурация плагина AtheriumEnchants успешно перезагружена!"));
         return true;
     }
 }

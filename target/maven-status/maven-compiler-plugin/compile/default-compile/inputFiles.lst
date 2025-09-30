@@ -7,8 +7,7 @@
 /app/src/main/java/ua/etherium/enchants/types/IdentifyEnchant.java
 /app/src/main/java/ua/etherium/utils/ColorUtils.java
 /app/src/main/java/ua/etherium/listeners/EnchantTableListener.java
-/app/src/main/java/ua/etherium/enchants/EnchantType.java
-/app/src/main/java/ua/etherium/utils/LocationUtils.java
+/app/src/main/java/ua/etherium/enchants/types/ExplosiveEnchant.java
 /app/src/main/java/ua/etherium/listeners/AnvilListener.java
 /app/src/main/java/ua/etherium/enchants/types/TimberEnchant.java
 /app/src/main/java/ua/etherium/enchants/types/SniperEnchant.java
@@ -25,7 +24,8 @@
 /app/src/main/java/ua/etherium/enchants/types/DodgeEnchant.java
 /app/src/main/java/ua/etherium/utils/ItemUtils.java
 /app/src/main/java/ua/etherium/AtheriumEnchants.java
+/app/src/main/java/ua/etherium/listeners/ArmorEffectListener.java
 /app/src/main/java/ua/etherium/gui/MenuManager.java
 /app/src/main/java/ua/etherium/enchants/types/BlastMiningEnchant.java
 /app/src/main/java/ua/etherium/listeners/EntityDamageHandler.java
-/app/src/main/java/ua/etherium/gui/MenuItem.java
+/app/src/main/java/ua/etherium/enchants/types/PoisonThornsEnchant.java

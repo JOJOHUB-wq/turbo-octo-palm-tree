@@ -10,6 +10,8 @@ import ua.etherium.AtheriumEnchants;
 import ua.etherium.enchants.CustomEnchant;
 
 import java.util.ArrayList;
+import ua.etherium.utils.ColorUtils;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,76 +28,82 @@ public class EnchantTabCompleter implements TabCompleter {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1) {
-            completions.add("menu");
-            completions.add("give");
-            completions.add("enchant");
-            completions.add("reload");
-            return filterCompletions(completions, args[0]);
+            completions.addAll(Arrays.asList("menu", "give", "enchant", "reload"));
+            return filter(completions, args[0]);
         }
 
+        String subCommand = args[0].toLowerCase();
+
+        if (subCommand.equals("give")) {
+            return handleGiveCompletion(sender, args);
+        }
+
+        if (subCommand.equals("enchant")) {
+            return handleEnchantCompletion(sender, args);
+        }
+
+        return completions;
+    }
+
+    private List<String> handleGiveCompletion(CommandSender sender, String[] args) {
+        List<String> completions = new ArrayList<>();
         if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("give")) {
-                return Bukkit.getOnlinePlayers().stream()
-                        .map(Player::getName)
-                        .collect(Collectors.toList());
-            }
-
-            if (args[0].equalsIgnoreCase("enchant")) {
-                if (!(sender instanceof Player)) {
-                    return completions;
-                }
-
-                Player player = (Player) sender;
-                ItemStack item = player.getInventory().getItemInMainHand();
-
-                if (item.getType().isAir()) {
-                    return completions;
-                }
-
-                for (CustomEnchant enchant : plugin.getEnchantManager().getAllEnchants()) {
-                    if (enchant.canApplyTo(item)) {
-                        completions.add(enchant.getKey());
-                    }
-                }
-
-                return filterCompletions(completions, args[1]);
-            }
+            completions.addAll(Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()));
+            return filter(completions, args[1]);
         }
 
         if (args.length == 3) {
-            if (args[0].equalsIgnoreCase("give")) {
-                for (CustomEnchant enchant : plugin.getEnchantManager().getAllEnchants()) {
-                    completions.add(enchant.getKey());
-                }
-                return filterCompletions(completions, args[2]);
-            }
-
-            if (args[0].equalsIgnoreCase("enchant")) {
-                CustomEnchant enchant = plugin.getEnchantManager().getEnchant(args[1]);
-                if (enchant != null) {
-                    for (int i = 1; i <= enchant.getMaxLevel(); i++) {
-                        completions.add(String.valueOf(i));
-                    }
-                }
-                return completions;
-            }
+            completions.addAll(plugin.getEnchantManager().getAllEnchants().stream().map(CustomEnchant::getKey).collect(Collectors.toList()));
+            return filter(completions, args[2]);
         }
 
-        if (args.length == 4 && args[0].equalsIgnoreCase("give")) {
+        if (args.length == 4) {
             CustomEnchant enchant = plugin.getEnchantManager().getEnchant(args[2]);
             if (enchant != null) {
                 for (int i = 1; i <= enchant.getMaxLevel(); i++) {
                     completions.add(String.valueOf(i));
                 }
             }
-            return completions;
+            return filter(completions, args[3]);
+        }
+        return completions;
+    }
+
+    private List<String> handleEnchantCompletion(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) return new ArrayList<>();
+        Player player = (Player) sender;
+        List<String> completions = new ArrayList<>();
+
+        if (args.length == 2) {
+            ItemStack item = player.getInventory().getItemInMainHand();
+            if (item.getType().isAir()) {
+                 player.sendMessage(ColorUtils.color("&#FF6600Возьмите предмет в руку для подсказки по зачарованиям."));
+                return completions;
+            }
+
+            for (CustomEnchant enchant : plugin.getEnchantManager().getAllEnchants()) {
+                if (enchant.canApplyTo(item)) {
+                    completions.add(enchant.getKey());
+                }
+            }
+            return filter(completions, args[1]);
+        }
+
+        if (args.length == 3) {
+            CustomEnchant enchant = plugin.getEnchantManager().getEnchant(args[1]);
+            if (enchant != null) {
+                for (int i = 1; i <= enchant.getMaxLevel(); i++) {
+                    completions.add(String.valueOf(i));
+                }
+            }
+            return filter(completions, args[2]);
         }
 
         return completions;
     }
 
-    private List<String> filterCompletions(List<String> completions, String input) {
-        return completions.stream()
+    private List<String> filter(List<String> list, String input) {
+        return list.stream()
                 .filter(s -> s.toLowerCase().startsWith(input.toLowerCase()))
                 .collect(Collectors.toList());
     }

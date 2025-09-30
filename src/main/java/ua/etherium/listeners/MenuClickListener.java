@@ -17,53 +17,53 @@ public class MenuClickListener implements Listener {
 
     public MenuClickListener(AtheriumEnchants plugin) {
         this.plugin = plugin;
-        this.menuManager = new MenuManager(plugin); // Re-use MenuManager logic
+        this.menuManager = new MenuManager(plugin);
     }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        // Check if the inventory is one of our custom menus
-        if (event.getInventory().getHolder() instanceof MenuManager.CustomMenuHolder) {
-            // Prevent players from taking items from the menu
-            event.setCancelled(true);
+        if (!(event.getInventory().getHolder() instanceof MenuManager.CustomMenuHolder)) {
+            return;
+        }
 
-            Player player = (Player) event.getWhoClicked();
-            ItemStack clickedItem = event.getCurrentItem();
+        event.setCancelled(true);
 
-            if (clickedItem == null || clickedItem.getType().isAir()) {
-                return;
-            }
+        Player player = (Player) event.getWhoClicked();
+        ItemStack clickedItem = event.getCurrentItem();
 
-            // Get the actions associated with the clicked item
-            String menuName = ((MenuManager.CustomMenuHolder) event.getInventory().getHolder()).getMenuName();
-            List<String> actions = menuManager.getActions(menuName, event.getSlot());
+        if (clickedItem == null || clickedItem.getType().isAir()) {
+            return;
+        }
 
-            if (actions != null) {
-                executeActions(player, actions);
-            }
+        String menuName = ((MenuManager.CustomMenuHolder) event.getInventory().getHolder()).getMenuName();
+        List<String> actions = menuManager.getActions(menuName, event.getSlot());
+
+        if (actions != null && !actions.isEmpty()) {
+            executeActions(player, actions);
         }
     }
 
     private void executeActions(Player player, List<String> actions) {
         for (String action : actions) {
             String[] parts = action.split(":", 2);
-            String actionType = parts[0].toLowerCase();
-            String actionValue = parts.length > 1 ? parts[1] : "";
+            if (parts.length == 0) continue;
 
-            switch (actionType) {
+            String type = parts[0].toLowerCase();
+            String value = parts.length > 1 ? parts[1] : "";
+
+            switch (type) {
                 case "open_menu":
-                    menuManager.openMenu(player, actionValue);
+                    menuManager.openMenu(player, value.trim());
                     break;
                 case "close":
                     player.closeInventory();
                     break;
                 case "command":
-                    player.performCommand(actionValue);
+                    player.performCommand(value.trim());
                     break;
                 case "console_command":
-                    plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), actionValue);
+                    plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), value.trim().replace("%player%", player.getName()));
                     break;
-                // Add more action types here as needed
             }
         }
     }

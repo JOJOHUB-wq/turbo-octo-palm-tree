@@ -1,27 +1,35 @@
+# Имя плагина, отображаемое в списке плагинов
 name: AtheriumEnchants
+# Версия плагина
 version: '3.0'
+# Главный класс, который будет загружен сервером
 main: ua.etherium.AtheriumEnchants
+# Версия API, с которой совместим плагин (1.21 для Minecraft 1.21)
 api-version: '1.21'
+# Автор плагина
 author: oleze_bebidjonov
+# Мягкая зависимость от Vault, плагин загрузится даже если Vault отсутствует
 softdepend: [Vault]
+# Регистрация команд
 commands:
   atheriumenchants:
-    description: Главная команда плагина
-    usage: /atheriumenchants <menu|give|enchant|reload>
+    description: Главная команда плагина AtheriumEnchants
+    usage: /<command> <menu|give|enchant|reload>
     aliases: [ate, ce]
+# Определение прав доступа (permissions)
 permissions:
   atheriumenchants.admin:
-    description: Полный доступ к плагину
+    description: Полный доступ ко всем командам плагина.
     default: op
   atheriumenchants.menu:
-    description: Открыть меню зачарований
+    description: Разрешает открывать меню зачарований.
     default: true
   atheriumenchants.give:
-    description: Выдать книгу зачарования
+    description: Разрешает выдавать книги с кастомными зачарованиями.
     default: op
   atheriumenchants.enchant:
-    description: Зачаровать предмет в руке
+    description: Разрешает накладывать кастомные зачарования на предмет в руке.
     default: op
   atheriumenchants.reload:
-    description: Перезагрузить конфиги
+    description: Разрешает перезагружать конфигурацию плагина.
     default: op

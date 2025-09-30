@@ -1,3 +1,4 @@
+ua/etherium/listeners/ArmorEffectListener.class
 ua/etherium/enchants/types/WisdomEnchant.class
 ua/etherium/listeners/MenuClickListener.class
 ua/etherium/enchants/CustomEnchant.class
@@ -9,7 +10,6 @@ ua/etherium/enchants/types/BlastMiningEnchant.class
 ua/etherium/gui/MenuManager$CustomMenuHolder.class
 ua/etherium/enchants/types/OxidationEnchant.class
 ua/etherium/gui/MenuManager.class
-ua/etherium/gui/MenuItem.class
 ua/etherium/managers/CooldownManager.class
 ua/etherium/enchants/types/InfernalTouchEnchant.class
 ua/etherium/enchants/types/IdentifyEnchant.class
@@ -18,15 +18,14 @@ ua/etherium/utils/ColorUtils.class
 ua/etherium/enchants/types/VampirismEnchant.class
 ua/etherium/managers/ConfigManager.class
 ua/etherium/enchants/types/ToxicEnchant.class
-ua/etherium/enchants/types/BlastMiningEnchant$1.class
+ua/etherium/enchants/types/ExplosiveEnchant.class
+ua/etherium/enchants/types/PoisonThornsEnchant.class
 ua/etherium/enchants/types/SpringsEnchant.class
 ua/etherium/gui/MenuAnimation.class
 ua/etherium/enchants/types/SniperEnchant.class
-ua/etherium/enchants/EnchantType.class
 ua/etherium/utils/ItemUtils.class
 ua/etherium/listeners/EntityDamageHandler.class
 ua/etherium/commands/EnchantCommand.class
-ua/etherium/utils/LocationUtils.class
 ua/etherium/AtheriumEnchants.class
 ua/etherium/listeners/AnvilListener.class
 ua/etherium/enchants/types/TimberEnchant.class

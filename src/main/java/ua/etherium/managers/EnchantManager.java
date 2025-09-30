@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 
 public class EnchantManager {
 
@@ -32,7 +31,7 @@ public class EnchantManager {
 
             CustomEnchant enchant = createEnchantment(key, config);
             if (enchant != null) {
-                enchants.put(key, enchant);
+                enchants.put(key.toLowerCase(), enchant);
             } else {
                 plugin.getLogger().warning("Unknown enchantment type in enchants.yml: " + key);
             }
@@ -64,8 +63,12 @@ public class EnchantManager {
                 return new DodgeEnchant(key, config);
             case "springs":
                 return new SpringsEnchant(key, config);
+            case "poison_thorns":
+                return new PoisonThornsEnchant(key, config);
             case "sniper":
                 return new SniperEnchant(key, config);
+            case "explosive":
+                return new ExplosiveEnchant(key, config);
             default:
                 return null;
         }

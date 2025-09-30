@@ -19,13 +19,6 @@ public class AtheriumEnchants extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        saveDefaultConfig();
-        saveResource("enchants.yml", false);
-        saveResource("menus/main.yml", false);
-        saveResource("menus/weapon.yml", false);
-        saveResource("menus/tools.yml", false);
-        saveResource("menus/armor.yml", false);
-
         configManager = new ConfigManager(this);
         cooldownManager = new CooldownManager();
         enchantManager = new EnchantManager(this);
@@ -40,13 +33,14 @@ public class AtheriumEnchants extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new AnvilListener(this), this);
         getServer().getPluginManager().registerEvents(new EnchantTableListener(this), this);
         getServer().getPluginManager().registerEvents(new MenuClickListener(this), this);
+        getServer().getPluginManager().registerEvents(new ArmorEffectListener(this), this);
 
-        getLogger().info("AtheriumEnchants загружен успешно!");
+        getLogger().info("AtheriumEnchants v3.0 by oleze_bebidjonov has been enabled successfully.");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("AtheriumEnchants выгружен!");
+        getLogger().info("AtheriumEnchants has been disabled.");
     }
 
     public static AtheriumEnchants getInstance() {

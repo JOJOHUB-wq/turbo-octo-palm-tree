@@ -1,5 +1,6 @@
 package ua.etherium.enchants;
 
+import com.google.common.collect.Sets;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,28 +13,34 @@ import org.bukkit.persistence.PersistentDataType;
 import ua.etherium.AtheriumEnchants;
 import ua.etherium.utils.ColorUtils;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class CustomEnchant {
 
     protected final String key;
     protected final FileConfiguration config;
     protected final String name;
+    protected final String description;
     protected final String rarityDisplay;
     protected final int maxLevel;
-    protected final List<String> targetItems;
+    protected final List<String> targetItemKeywords;
     protected final List<String> conflicts;
+    private final Set<Material> applicableItems;
 
     public CustomEnchant(String key, FileConfiguration config) {
         this.key = key;
         this.config = config;
         this.name = config.getString(key + ".name", "Unnamed Enchant");
+        this.description = config.getString(key + ".description", "");
         this.rarityDisplay = config.getString(key + ".rarity_display", "");
         this.maxLevel = config.getInt(key + ".max_level", 1);
-        this.targetItems = config.getStringList(key + ".target_items");
+        this.targetItemKeywords = config.getStringList(key + ".target_items");
         this.conflicts = config.getStringList(key + ".conflicts");
+        this.applicableItems = parseTargetItems(targetItemKeywords);
     }
 
     public String getKey() {
@@ -44,15 +51,23 @@ public abstract class CustomEnchant {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public int getMaxLevel() {
         return maxLevel;
+    }
+
+    public List<String> getConflicts() {
+        return conflicts;
     }
 
     public boolean canApplyTo(ItemStack item) {
         if (item == null || item.getType().isAir()) {
             return false;
         }
-        return targetItems.contains(item.getType().name());
+        return applicableItems.contains(item.getType());
     }
 
     public ItemStack applyToItem(ItemStack item, int level) {
@@ -70,10 +85,10 @@ public abstract class CustomEnchant {
         container.set(namespacedKey, PersistentDataType.INTEGER, level);
 
         List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>();
-        lore.add(0, ColorUtils.color(rarityDisplay + " " + name + " " + toRoman(level)));
+        lore.removeIf(line -> ColorUtils.strip(line).startsWith(ColorUtils.strip(rarityDisplay + " " + name)));
+        lore.add(0, ColorUtils.color(getDisplayName(level)));
         meta.setLore(lore);
 
-        // Add a vanilla enchant to make it glow
         if (!meta.hasEnchants()) {
             meta.addEnchant(Enchantment.UNBREAKING, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -87,16 +102,13 @@ public abstract class CustomEnchant {
         ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
         ItemMeta meta = book.getItemMeta();
 
-        meta.setDisplayName(ColorUtils.color(rarityDisplay + " " + name));
-
-        PersistentDataContainer container = meta.getPersistentDataContainer();
         NamespacedKey namespacedKey = new NamespacedKey(AtheriumEnchants.getInstance(), key);
-        container.set(namespacedKey, PersistentDataType.INTEGER, level);
+        meta.getPersistentDataContainer().set(namespacedKey, PersistentDataType.INTEGER, level);
 
         List<String> lore = new ArrayList<>();
-        lore.add(ColorUtils.color(rarityDisplay + " " + name + " " + toRoman(level)));
+        lore.add(ColorUtils.color(getDisplayName(level)));
         lore.add("");
-        lore.add(ColorUtils.color("&7" + config.getString(key + ".description")));
+        lore.add(ColorUtils.color("&7" + this.description));
         meta.setLore(lore);
 
         meta.addEnchant(Enchantment.UNBREAKING, 1, true);
@@ -107,7 +119,7 @@ public abstract class CustomEnchant {
     }
 
     public static int getEnchantLevel(ItemStack item, CustomEnchant enchant) {
-        if (item == null || !item.hasItemMeta()) {
+        if (item == null || !item.hasItemMeta() || enchant == null) {
             return 0;
         }
         ItemMeta meta = item.getItemMeta();
@@ -116,12 +128,18 @@ public abstract class CustomEnchant {
         return container.getOrDefault(key, PersistentDataType.INTEGER, 0);
     }
 
-    protected String toRoman(int number) {
-        if (number < 1 || number > 10) {
-            return String.valueOf(number);
+    private String getDisplayName(int level) {
+        if (level <= 1 && maxLevel == 1) {
+            return rarityDisplay + " " + name;
         }
-        String[] r = {"X", "IX", "V", "IV", "I"};
-        int[] n = {10, 9, 5, 4, 1};
+        return rarityDisplay + " " + name + " " + toRoman(level);
+    }
+
+    private String toRoman(int number) {
+        if (number < 1) return "";
+        if (number >= 4000) return String.valueOf(number);
+        final String[] r = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        final int[] n = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
         StringBuilder roman = new StringBuilder();
         for (int i = 0; i < n.length; i++) {
             while (number >= n[i]) {
@@ -130,5 +148,47 @@ public abstract class CustomEnchant {
             }
         }
         return roman.toString();
+    }
+
+    private Set<Material> parseTargetItems(List<String> keywords) {
+        Set<Material> materials = Sets.newHashSet();
+        for (String keyword : keywords) {
+            String upperKeyword = keyword.toUpperCase();
+            if (upperKeyword.startsWith("ALL_")) {
+                String type = upperKeyword.replace("ALL_", "");
+                materials.addAll(getMaterialsByType(type));
+            } else {
+                try {
+                    materials.add(Material.valueOf(upperKeyword));
+                } catch (IllegalArgumentException ignored) {}
+            }
+        }
+        return materials;
+    }
+
+    private Set<Material> getMaterialsByType(String type) {
+        Stream<Material> materialStream = Stream.of(Material.values());
+        String cleanType = type.endsWith("S") ? type.substring(0, type.length() - 1) : type;
+
+        switch (cleanType) {
+            case "SWORD":
+            case "PICKAXE":
+            case "AXE":
+            case "SHOVEL":
+            case "HOE":
+                return materialStream.filter(m -> m.name().endsWith("_" + cleanType)).collect(Collectors.toSet());
+            case "ARMOR":
+                return materialStream.filter(m -> {
+                    String name = m.name();
+                    return name.endsWith("_HELMET") || name.endsWith("_CHESTPLATE") || name.endsWith("_LEGGINGS") || name.endsWith("_BOOTS");
+                }).collect(Collectors.toSet());
+            case "HELMET":
+            case "CHESTPLATE":
+            case "LEGGINGS":
+            case "BOOTS":
+                 return materialStream.filter(m -> m.name().endsWith("_" + cleanType)).collect(Collectors.toSet());
+            default:
+                return Sets.newHashSet();
+        }
     }
 }

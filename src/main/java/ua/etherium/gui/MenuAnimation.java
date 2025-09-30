@@ -1,40 +1,58 @@
 package ua.etherium.gui;
 
+import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-import ua.etherium.AtheriumEnchants;
+import ua.etherium.utils.ColorUtils;
 
 public class MenuAnimation extends BukkitRunnable {
 
     private final Inventory menu;
-    private int frame = 0;
+    private final ItemStack fillItem;
+    private int currentSlot = 0;
 
-    public MenuAnimation(Inventory menu) {
+    public MenuAnimation(Inventory menu, ConfigurationSection fillItemConfig) {
         this.menu = menu;
+        this.fillItem = createFillItem(fillItemConfig);
     }
 
     @Override
     public void run() {
-        // This is a placeholder for future animation logic.
-        // For example, you could cycle the color of a specific item's title
-        // or change the material of decorative glass panes.
-
-        // Example:
-        // ItemStack item = menu.getItem(0);
-        // if (item != null) {
-        //     ItemMeta meta = item.getItemMeta();
-        //     meta.setDisplayName(ColorUtils.color("Frame: " + frame));
-        //     item.setItemMeta(meta);
-        // }
-        // frame++;
-
-        // If the menu is no longer being viewed, cancel the animation task.
         if (menu.getViewers().isEmpty()) {
             this.cancel();
+            return;
         }
+
+        while (currentSlot < menu.getSize()) {
+            if (menu.getItem(currentSlot) == null) {
+                menu.setItem(currentSlot, fillItem);
+                currentSlot++;
+                return;
+            }
+            currentSlot++;
+        }
+
+        this.cancel();
     }
 
-    public void start(AtheriumEnchants plugin, long delay, long period) {
-        this.runTaskTimer(plugin, delay, period);
+    private ItemStack createFillItem(ConfigurationSection config) {
+        if (config == null) {
+            return new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        }
+        try {
+            Material material = Material.valueOf(config.getString("material", "BLACK_STAINED_GLASS_PANE").toUpperCase());
+            ItemStack item = new ItemStack(material);
+            ItemMeta meta = item.getItemMeta();
+            if (meta != null) {
+                meta.setDisplayName(ColorUtils.color(config.getString("display_name", " ")));
+                item.setItemMeta(meta);
+            }
+            return item;
+        } catch (IllegalArgumentException e) {
+            return new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        }
     }
 }

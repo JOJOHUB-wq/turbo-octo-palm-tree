@@ -21,22 +21,17 @@ public class ConfigManager {
 
     public ConfigManager(AtheriumEnchants plugin) {
         this.plugin = plugin;
+        saveDefaultConfigs();
         reload();
     }
 
     public void reload() {
-        // Load main config.yml
         plugin.reloadConfig();
         mainConfig = plugin.getConfig();
 
-        // Load enchants.yml
         File enchantsFile = new File(plugin.getDataFolder(), "enchants.yml");
-        if (!enchantsFile.exists()) {
-            plugin.saveResource("enchants.yml", false);
-        }
         enchantsConfig = YamlConfiguration.loadConfiguration(enchantsFile);
 
-        // Load menu configurations
         menuConfigs.clear();
         File menusFolder = new File(plugin.getDataFolder(), "menus");
         if (menusFolder.exists() && menusFolder.isDirectory()) {
@@ -48,6 +43,16 @@ public class ConfigManager {
                 }
             }
         }
+    }
+
+    private void saveDefaultConfigs() {
+        plugin.saveDefaultConfig();
+        plugin.saveResource("enchants.yml", false);
+        plugin.saveResource("menus/main.yml", false);
+        plugin.saveResource("menus/weapon.yml", false);
+        plugin.saveResource("menus/tools.yml", false);
+        plugin.saveResource("menus/armor.yml", false);
+        plugin.saveResource("menus/bow.yml", false);
     }
 
     public FileConfiguration getMainConfig() {

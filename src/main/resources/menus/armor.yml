@@ -1,12 +1,21 @@
-# Armor menu configuration
-title: "Armor Enchants"
+# ============================================
+#         Меню зачарований на броню
+# ============================================
+title: "&8Atherium: &aБроня"
 size: 54
+
+# Декоративные элементы
+fill_item:
+  material: "LIME_STAINED_GLASS_PANE"
+  display_name: " "
+
 items:
+  # Кнопка "Назад"
   back:
-    material: ARROW
+    material: "ARROW"
     slot: 49
-    display_name: "&cBack"
+    display_name: "&c&lНазад"
     lore:
-      - "&7Return to the main menu."
+      - "&7Вернуться в главное меню."
     actions:
-      - "open_menu: main"
+      - "open_menu:main"

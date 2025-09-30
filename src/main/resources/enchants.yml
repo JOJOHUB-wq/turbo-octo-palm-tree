@@ -1,509 +1,219 @@
+# ============================================
+#            ЗАЧАРОВАНИЯ НА ОРУЖИЕ
+# ============================================
 oxidation:
   enabled: true
   name: "Окисление"
-  description: "Ломает броню быстрее"
+  description: "Ломает броню врага быстрее."
   rarity: "LEGENDARY"
   rarity_display: "&#EDFF43Л&#EEFF42е&#EEFF41г&#EFFF40е&#F0FF3Fн&#F1FF3Eд&#F1FF3Dа&#F2FF3Cр&#F3FF3Bн&#F3FF3Aы&#F4FF39й"
   max_level: 2
-  target_items:
-    - "NETHERITE_SWORD"
-    - "DIAMOND_SWORD"
-    - "IRON_SWORD"
-    - "GOLDEN_SWORD"
-    - "STONE_SWORD"
-    - "WOODEN_SWORD"
+  target_items: ["ALL_SWORDS", "ALL_AXES"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  table: { enabled: true, chance: 15 }
   levels:
-    1:
-      chance: 15
-      cooldown: 2
-      damage_armor: 5
-    2:
-      chance: 25
-      cooldown: 2
-      damage_armor: 10
+    1: { chance: 15, cooldown: 2, damage_armor: 5 }
+    2: { chance: 25, cooldown: 2, damage_armor: 10 }
 
 vampirism:
   enabled: true
   name: "Вампиризм"
-  description: "Восстанавливает здоровье при атаке"
+  description: "Восстанавливает здоровье при атаке."
   rarity: "RARE"
   rarity_display: "&#29FF1DР&#39FF2Cе&#4AFF3Aд&#5AFF49к&#6BFF57и&#7BFF66й"
-  max_level: 2
-  target_items:
-    - "NETHERITE_SWORD"
-    - "DIAMOND_SWORD"
-    - "IRON_SWORD"
-    - "GOLDEN_SWORD"
-    - "STONE_SWORD"
-    - "WOODEN_SWORD"
+  max_level: 3
+  target_items: ["ALL_SWORDS", "ALL_AXES"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  table: { enabled: true, chance: 15 }
   levels:
-    1:
-      chance: 15
-      cooldown: 20
-      duration: 40
-    2:
-      chance: 25
-      cooldown: 20
-      duration: 40
+    1: { chance: 15, cooldown: 10, duration: 80, amplifier: 1 } # Regen I for 4s
+    2: { chance: 20, cooldown: 10, duration: 120, amplifier: 1 } # Regen I for 6s
+    3: { chance: 25, cooldown: 10, duration: 100, amplifier: 2 } # Regen II for 5s
 
 toxic:
   enabled: true
   name: "Отравление"
-  description: "Отравляет противника"
+  description: "Отравляет противника при атаке."
   rarity: "LEGENDARY"
   rarity_display: "&#EDFF43Л&#EEFF42е&#EEFF41г&#EFFF40е&#F0FF3Fн&#F1FF3Eд&#F1FF3Dа&#F2FF3Cр&#F3FF3Bн&#F3FF3Aы&#F4FF39й"
   max_level: 3
-  target_items:
-    - "NETHERITE_SWORD"
-    - "DIAMOND_SWORD"
-    - "IRON_SWORD"
-    - "GOLDEN_SWORD"
-    - "STONE_SWORD"
-    - "WOODEN_SWORD"
+  target_items: ["ALL_SWORDS", "ALL_AXES"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  table: { enabled: true, chance: 15 }
   levels:
-    1:
-      chance: 15
-      cooldown: 2
-      duration: 80
-    2:
-      chance: 25
-      cooldown: 2
-      duration: 120
-    3:
-      chance: 35
-      cooldown: 2
-      duration: 140
+    1: { chance: 15, cooldown: 5, duration: 80, amplifier: 1 }  # Poison I for 4s
+    2: { chance: 25, cooldown: 5, duration: 120, amplifier: 1 } # Poison I for 6s
+    3: { chance: 35, cooldown: 5, duration: 100, amplifier: 2 } # Poison II for 5s
 
 identify:
   enabled: true
   name: "Свечение"
-  description: "Подсвечивает противника"
+  description: "Подсвечивает противника при атаке."
   rarity: "LEGENDARY"
   rarity_display: "&#EDFF43Л&#EEFF42е&#EEFF41г&#EFFF40е&#F0FF3Fн&#F1FF3Eд&#F1FF3Dа&#F2FF3Cр&#F3FF3Bн&#F3FF3Aы&#F4FF39й"
-  max_level: 3
-  target_items:
-    - "NETHERITE_SWORD"
-    - "DIAMOND_SWORD"
-    - "IRON_SWORD"
-    - "GOLDEN_SWORD"
-    - "STONE_SWORD"
-    - "WOODEN_SWORD"
+  max_level: 1
+  target_items: ["ALL_SWORDS", "ALL_AXES"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  table: { enabled: true, chance: 15 }
   levels:
-    1:
-      chance: 17
-      cooldown: 3
-      duration: 60
-    2:
-      chance: 25
-      cooldown: 3
-      duration: 80
-    3:
-      chance: 33
-      cooldown: 3
-      duration: 100
+    1: { chance: 30, cooldown: 10, duration: 100 } # Glowing for 5s
 
+# ============================================
+#           ЗАЧАРОВАНИЯ НА ИНСТРУМЕНТЫ
+# ============================================
 blast_mining:
   enabled: true
   name: "Бульдозер"
-  description: "Ломает блоки 3x3"
+  description: "Ломает блоки в области 3x3."
   rarity: "LEGENDARY"
   rarity_display: "&#EDFF43Л&#EEFF42е&#EEFF41г&#EFFF40е&#F0FF3Fн&#F1FF3Eд&#F1FF3Dа&#F2FF3Cр&#F3FF3Bн&#F3FF3Aы&#F4FF39й"
   max_level: 2
-  target_items:
-    - "NETHERITE_PICKAXE"
-    - "DIAMOND_PICKAXE"
-    - "IRON_PICKAXE"
-    - "GOLDEN_PICKAXE"
-    - "STONE_PICKAXE"
-    - "WOODEN_PICKAXE"
-    - "NETHERITE_SHOVEL"
-    - "DIAMOND_SHOVEL"
-    - "IRON_SHOVEL"
-    - "GOLDEN_SHOVEL"
-    - "STONE_SHOVEL"
-    - "WOODEN_SHOVEL"
-    - "NETHERITE_AXE"
-    - "DIAMOND_AXE"
-    - "IRON_AXE"
-    - "GOLDEN_AXE"
-    - "STONE_AXE"
-    - "WOODEN_AXE"
-  conflicts: []
-  table:
-    enabled: true
-    chance: 10
+  target_items: ["ALL_PICKAXES", "ALL_SHOVELS", "ALL_AXES"]
+  conflicts: ["timber"]
+  table: { enabled: true, chance: 10 }
   levels:
     1:
       radius_x: 3
       radius_y: 1
       radius_z: 3
-      blocks_pickaxe:
-        - "STONE"
-        - "COBBLESTONE"
-        - "DEEPSLATE"
-        - "COBBLED_DEEPSLATE"
-        - "IRON_ORE"
-        - "DEEPSLATE_IRON_ORE"
-        - "GOLD_ORE"
-        - "DEEPSLATE_GOLD_ORE"
-        - "DIAMOND_ORE"
-        - "DEEPSLATE_DIAMOND_ORE"
-        - "COAL_ORE"
-        - "DEEPSLATE_COAL_ORE"
-        - "COPPER_ORE"
-        - "DEEPSLATE_COPPER_ORE"
-        - "LAPIS_ORE"
-        - "DEEPSLATE_LAPIS_ORE"
-        - "REDSTONE_ORE"
-        - "DEEPSLATE_REDSTONE_ORE"
-        - "EMERALD_ORE"
-        - "DEEPSLATE_EMERALD_ORE"
-        - "NETHERRACK"
-        - "NETHER_GOLD_ORE"
-        - "NETHER_QUARTZ_ORE"
-        - "END_STONE"
-      blocks_shovel:
-        - "DIRT"
-        - "GRASS_BLOCK"
-        - "SAND"
-        - "RED_SAND"
-        - "GRAVEL"
-        - "SOUL_SAND"
-        - "SOUL_SOIL"
-        - "CLAY"
-        - "COARSE_DIRT"
-      blocks_axe:
-        - "OAK_LOG"
-        - "BIRCH_LOG"
-        - "SPRUCE_LOG"
-        - "JUNGLE_LOG"
-        - "ACACIA_LOG"
-        - "DARK_OAK_LOG"
-        - "MANGROVE_LOG"
-        - "CHERRY_LOG"
-        - "CRIMSON_STEM"
-        - "WARPED_STEM"
     2:
       radius_x: 3
       radius_y: 3
       radius_z: 3
-      blocks_pickaxe:
-        - "STONE"
-        - "COBBLESTONE"
-        - "DEEPSLATE"
-        - "COBBLED_DEEPSLATE"
-        - "IRON_ORE"
-        - "DEEPSLATE_IRON_ORE"
-        - "GOLD_ORE"
-        - "DEEPSLATE_GOLD_ORE"
-        - "DIAMOND_ORE"
-        - "DEEPSLATE_DIAMOND_ORE"
-        - "COAL_ORE"
-        - "DEEPSLATE_COAL_ORE"
-        - "COPPER_ORE"
-        - "DEEPSLATE_COPPER_ORE"
-        - "LAPIS_ORE"
-        - "DEEPSLATE_LAPIS_ORE"
-        - "REDSTONE_ORE"
-        - "DEEPSLATE_REDSTONE_ORE"
-        - "EMERALD_ORE"
-        - "DEEPSLATE_EMERALD_ORE"
-        - "NETHERRACK"
-        - "NETHER_GOLD_ORE"
-        - "NETHER_QUARTZ_ORE"
-        - "END_STONE"
-      blocks_shovel:
-        - "DIRT"
-        - "GRASS_BLOCK"
-        - "SAND"
-        - "RED_SAND"
-        - "GRAVEL"
-        - "SOUL_SAND"
-        - "SOUL_SOIL"
-        - "CLAY"
-        - "COARSE_DIRT"
-      blocks_axe:
-        - "OAK_LOG"
-        - "BIRCH_LOG"
-        - "SPRUCE_LOG"
-        - "JUNGLE_LOG"
-        - "ACACIA_LOG"
-        - "DARK_OAK_LOG"
-        - "MANGROVE_LOG"
-        - "CHERRY_LOG"
-        - "CRIMSON_STEM"
-        - "WARPED_STEM"
 
 timber:
   enabled: true
   name: "Лесоруб"
-  description: "Срубает дерево целиком"
+  description: "Срубает дерево целиком."
   rarity: "RARE"
   rarity_display: "&#29FF1DР&#39FF2Cе&#4AFF3Aд&#5AFF49к&#6BFF57и&#7BFF66й"
-  max_level: 2
-  target_items:
-    - "NETHERITE_AXE"
-    - "DIAMOND_AXE"
-    - "IRON_AXE"
-    - "GOLDEN_AXE"
-    - "STONE_AXE"
-    - "WOODEN_AXE"
-  conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  max_level: 1
+  target_items: ["ALL_AXES"]
+  conflicts: ["blast_mining"]
+  table: { enabled: true, chance: 15 }
   levels:
     1:
-      max_blocks: 40
-      animation_delay_ticks: 2
-    2:
-      max_blocks: 999999
-      animation_delay_ticks: 2
+      max_blocks: 128
+      animation_delay_ticks: 1
 
 infernal_touch:
   enabled: true
   name: "Авто-плавка"
-  description: "Переплавляет руду автоматически"
+  description: "Автоматически переплавляет добытые блоки."
   rarity: "LEGENDARY"
   rarity_display: "&#EDFF43Л&#EEFF42е&#EEFF41г&#EFFF40е&#F0FF3Fн&#F1FF3Eд&#F1FF3Dа&#F2FF3Cр&#F3FF3Bн&#F3FF3Aы&#F4FF39й"
   max_level: 1
-  target_items:
-    - "NETHERITE_PICKAXE"
-    - "DIAMOND_PICKAXE"
-    - "IRON_PICKAXE"
-    - "GOLDEN_PICKAXE"
-    - "STONE_PICKAXE"
-    - "WOODEN_PICKAXE"
-    - "NETHERITE_SHOVEL"
-    - "DIAMOND_SHOVEL"
-    - "IRON_SHOVEL"
-    - "GOLDEN_SHOVEL"
-    - "STONE_SHOVEL"
-    - "WOODEN_SHOVEL"
-    - "NETHERITE_AXE"
-    - "DIAMOND_AXE"
-    - "IRON_AXE"
-    - "GOLDEN_AXE"
-    - "STONE_AXE"
-    - "WOODEN_AXE"
-  conflicts: []
-  table:
-    enabled: true
-    chance: 10
-  smelt_map:
-    "IRON_ORE": "IRON_INGOT"
-    "DEEPSLATE_IRON_ORE": "IRON_INGOT"
-    "GOLD_ORE": "GOLD_INGOT"
-    "DEEPSLATE_GOLD_ORE": "GOLD_INGOT"
-    "COPPER_ORE": "COPPER_INGOT"
-    "DEEPSLATE_COPPER_ORE": "COPPER_INGOT"
-    "NETHER_GOLD_ORE": "GOLD_NUGGET"
-    "COBBLESTONE": "STONE"
-    "COBBLED_DEEPSLATE": "DEEPSLATE"
-    "SAND": "GLASS"
-    "CLAY": "TERRACOTTA"
+  target_items: ["ALL_PICKAXES", "ALL_SHOVELS", "ALL_AXES"]
+  conflicts: ["SILK_TOUCH"]
+  table: { enabled: true, chance: 10 }
   levels:
     1: {}
 
 telekinesis:
   enabled: true
   name: "Магнит"
-  description: "Автоматический подбор блоков"
+  description: "Автоматически подбирает добытые блоки."
   rarity: "RARE"
   rarity_display: "&#29FF1DР&#39FF2Cе&#4AFF3Aд&#5AFF49к&#6BFF57и&#7BFF66й"
   max_level: 1
-  target_items:
-    - "NETHERITE_PICKAXE"
-    - "DIAMOND_PICKAXE"
-    - "IRON_PICKAXE"
-    - "GOLDEN_PICKAXE"
-    - "STONE_PICKAXE"
-    - "WOODEN_PICKAXE"
-    - "NETHERITE_SHOVEL"
-    - "DIAMOND_SHOVEL"
-    - "IRON_SHOVEL"
-    - "GOLDEN_SHOVEL"
-    - "STONE_SHOVEL"
-    - "WOODEN_SHOVEL"
-    - "NETHERITE_AXE"
-    - "DIAMOND_AXE"
-    - "IRON_AXE"
-    - "GOLDEN_AXE"
-    - "STONE_AXE"
-    - "WOODEN_AXE"
+  target_items: ["ALL_PICKAXES", "ALL_SHOVELS", "ALL_AXES"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 20
+  table: { enabled: true, chance: 20 }
   levels:
     1: {}
 
 wisdom:
   enabled: true
   name: "Опытный"
-  description: "Увеличивает получаемый опыт"
+  description: "Увеличивает получаемый опыт."
   rarity: "UNCOMMON"
   rarity_display: "&#886464Н&#8C6868е&#916C6Cо&#957070б&#9A7474ы&#9E7777ч&#A27B7Bн&#A77F7Fа&#AB8383я"
   max_level: 3
-  target_items:
-    - "NETHERITE_PICKAXE"
-    - "DIAMOND_PICKAXE"
-    - "IRON_PICKAXE"
-    - "GOLDEN_PICKAXE"
-    - "STONE_PICKAXE"
-    - "WOODEN_PICKAXE"
-    - "NETHERITE_SHOVEL"
-    - "DIAMOND_SHOVEL"
-    - "IRON_SHOVEL"
-    - "GOLDEN_SHOVEL"
-    - "STONE_SHOVEL"
-    - "WOODEN_SHOVEL"
-    - "NETHERITE_AXE"
-    - "DIAMOND_AXE"
-    - "IRON_AXE"
-    - "GOLDEN_AXE"
-    - "STONE_AXE"
-    - "WOODEN_AXE"
-    - "NETHERITE_SWORD"
-    - "DIAMOND_SWORD"
-    - "IRON_SWORD"
-    - "GOLDEN_SWORD"
-    - "STONE_SWORD"
-    - "WOODEN_SWORD"
+  target_items: ["ALL_PICKAXES", "ALL_SHOVELS", "ALL_AXES", "ALL_SWORDS"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  table: { enabled: true, chance: 15 }
   levels:
-    1:
-      chance: 15
-      min_exp: 2
-      max_exp: 5
-    2:
-      chance: 30
-      min_exp: 2
-      max_exp: 5
-    3:
-      chance: 45
-      min_exp: 2
-      max_exp: 5
+    1: { chance: 15, min_exp: 2, max_exp: 5 }
+    2: { chance: 30, min_exp: 2, max_exp: 5 }
+    3: { chance: 45, min_exp: 2, max_exp: 5 }
 
+# ============================================
+#             ЗАЧАРОВАНИЯ НА БРОНЮ
+# ============================================
 dodge:
   enabled: true
   name: "Уклонение"
-  description: "Шанс уклониться от атаки"
+  description: "Дает шанс уклониться от атаки."
   rarity: "EPIC"
   rarity_display: "&#E01DFFЭ&#DD26FFп&#D92FFFи&#D638FFч&#D342FFе&#CF4BFFс&#CC54FFк&#C85DFFи&#C566FFй"
   max_level: 2
-  target_items:
-    - "NETHERITE_HELMET"
-    - "DIAMOND_HELMET"
-    - "IRON_HELMET"
-    - "GOLDEN_HELMET"
-    - "CHAINMAIL_HELMET"
-    - "LEATHER_HELMET"
-    - "NETHERITE_CHESTPLATE"
-    - "DIAMOND_CHESTPLATE"
-    - "IRON_CHESTPLATE"
-    - "GOLDEN_CHESTPLATE"
-    - "CHAINMAIL_CHESTPLATE"
-    - "LEATHER_CHESTPLATE"
-    - "NETHERITE_LEGGINGS"
-    - "DIAMOND_LEGGINGS"
-    - "IRON_LEGGINGS"
-    - "GOLDEN_LEGGINGS"
-    - "CHAINMAIL_LEGGINGS"
-    - "LEATHER_LEGGINGS"
-    - "NETHERITE_BOOTS"
-    - "DIAMOND_BOOTS"
-    - "IRON_BOOTS"
-    - "GOLDEN_BOOTS"
-    - "CHAINMAIL_BOOTS"
-    - "LEATHER_BOOTS"
+  target_items: ["ALL_ARMOR"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  table: { enabled: true, chance: 15 }
   levels:
-    1:
-      chance: 7
-      cooldown: 8
-      sneak_bonus: 7
-    2:
-      chance: 12
-      cooldown: 8
-      sneak_bonus: 7
+    1: { chance: 7, cooldown: 8, sneak_bonus: 7 }
+    2: { chance: 12, cooldown: 8, sneak_bonus: 7 }
 
 springs:
   enabled: true
   name: "Попрыгун"
-  description: "Двойной прыжок"
+  description: "Дает постоянный эффект 'Прыгучесть'."
   rarity: "EPIC"
   rarity_display: "&#E01DFFЭ&#DD26FFп&#D92FFFи&#D638FFч&#D342FFе&#CF4BFFс&#CC54FFк&#C85DFFи&#C566FFй"
-  max_level: 1
-  target_items:
-    - "NETHERITE_BOOTS"
-    - "DIAMOND_BOOTS"
-    - "IRON_BOOTS"
-    - "GOLDEN_BOOTS"
-    - "CHAINMAIL_BOOTS"
-    - "LEATHER_BOOTS"
+  max_level: 2
+  target_items: ["ALL_BOOTS"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  table: { enabled: true, chance: 15 }
   levels:
-    1:
-      jump_amplifier: 0
+    1: { amplifier: 1 } # Jump Boost I
+    2: { amplifier: 2 } # Jump Boost II
 
+poison_thorns:
+  enabled: true
+  name: "Ядовитые Шипы"
+  description: "При получении урона отравляет атакующего."
+  rarity: "EPIC"
+  rarity_display: "&#E01DFFЭ&#DD26FFп&#D92FFFи&#D638FFч&#D342FFе&#CF4BFFс&#CC54FFк&#C85DFFи&#C566FFй"
+  max_level: 3
+  target_items: ["ALL_CHESTPLATES"]
+  conflicts: ["PROTECTION", "FIRE_PROTECTION", "BLAST_PROTECTION", "PROJECTILE_PROTECTION"]
+  table: { enabled: true, chance: 10 }
+  levels:
+    1: { chance: 15, duration: 60, amplifier: 1 } # Poison I for 3s
+    2: { chance: 20, duration: 100, amplifier: 1 } # Poison I for 5s
+    3: { chance: 25, duration: 80, amplifier: 2 } # Poison II for 4s
+
+# ============================================
+#              ЗАЧАРОВАНИЯ НА ЛУК
+# ============================================
 sniper:
   enabled: true
   name: "Снайпер"
-  description: "Больше урона на расстоянии"
+  description: "Увеличивает урон в зависимости от расстояния."
   rarity: "EPIC"
   rarity_display: "&#E01DFFЭ&#DD26FFп&#D92FFFи&#D638FFч&#D342FFе&#CF4BFFс&#CC54FFк&#C85DFFи&#C566FFй"
   max_level: 5
-  target_items:
-    - "BOW"
-    - "CROSSBOW"
+  target_items: ["BOW", "CROSSBOW"]
   conflicts: []
-  table:
-    enabled: true
-    chance: 15
+  table: { enabled: true, chance: 15 }
   levels:
-    1:
-      chance: 15
-      cooldown: 5
-      damage_per_block: 0.1
-    2:
-      chance: 20
-      cooldown: 5
-      damage_per_block: 0.15
-    3:
-      chance: 25
-      cooldown: 5
-      damage_per_block: 0.2
-    4:
-      chance: 30
-      cooldown: 5
-      damage_per_block: 0.25
-    5:
-      chance: 35
-      cooldown: 5
-      damage_per_block: 0.3
+    1: { chance: 15, cooldown: 5, damage_per_block: 0.1 }
+    2: { chance: 20, cooldown: 5, damage_per_block: 0.15 }
+    3: { chance: 25, cooldown: 5, damage_per_block: 0.2 }
+    4: { chance: 30, cooldown: 5, damage_per_block: 0.25 }
+    5: { chance: 35, cooldown: 5, damage_per_block: 0.3 }
+
+explosive:
+  enabled: true
+  name: "Подрывник"
+  description: "Создает взрыв при попадании стрелы."
+  rarity: "LEGENDARY"
+  rarity_display: "&#EDFF43Л&#EEFF42е&#EEFF41г&#EFFF40е&#F0FF3Fн&#F1FF3Eд&#F1FF3Dа&#F2FF3Cр&#F3FF3Bн&#F3FF3Aы&#F4FF39й"
+  max_level: 3
+  target_items: ["BOW", "CROSSBOW"]
+  conflicts: ["PUNCH", "FLAME", "INFINITY"]
+  table: { enabled: true, chance: 5 }
+  levels:
+    1: { chance: 20, power: 1.0 } # Low power explosion
+    2: { chance: 25, power: 1.5 }
+    3: { chance: 30, power: 2.0 } # TNT-like power

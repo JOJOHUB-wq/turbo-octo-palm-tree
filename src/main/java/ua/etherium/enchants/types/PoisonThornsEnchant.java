@@ -3,8 +3,8 @@ package ua.etherium.enchants.types;
 import org.bukkit.configuration.file.FileConfiguration;
 import ua.etherium.enchants.CustomEnchant;
 
-public class IdentifyEnchant extends CustomEnchant {
-    public IdentifyEnchant(String key, FileConfiguration config) {
+public class PoisonThornsEnchant extends CustomEnchant {
+    public PoisonThornsEnchant(String key, FileConfiguration config) {
         super(key, config);
     }
 }

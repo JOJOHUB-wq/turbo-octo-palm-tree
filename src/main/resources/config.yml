@@ -1,2 +1,44 @@
-# Main configuration file for AtheriumEnchants
-# This file is currently empty. Future settings will be added here.
+# ============================================
+#       Главный конфигурационный файл
+# ============================================
+# Здесь можно добавлять глобальные настройки плагина
+
+# Настройки для зачарования "Авто-плавка"
+# Определяет, какой предмет будет получен после добычи руды
+infernal_touch_smelt_map:
+  # Камень -> Гладкий камень
+  "COBBLESTONE": "STONE"
+  "COBBLED_DEEPSLATE": "DEEPSLATE"
+  # Руды -> Слитки
+  "IRON_ORE": "IRON_INGOT"
+  "DEEPSLATE_IRON_ORE": "IRON_INGOT"
+  "GOLD_ORE": "GOLD_INGOT"
+  "DEEPSLATE_GOLD_ORE": "GOLD_INGOT"
+  "COPPER_ORE": "COPPER_INGOT"
+  "DEEPSLATE_COPPER_ORE": "COPPER_INGOT"
+  # Другое
+  "SAND": "GLASS"
+  "RED_SAND": "GLASS"
+  "CLAY_BALL": "BRICK" # Глиняный шарик -> Кирпич
+  "NETHERRACK": "NETHER_BRICK" # Незерак -> Незеритовый кирпич
+  "ANCIENT_DEBRIS": "NETHERITE_SCRAP"
+  # Еда (для примера, если зачарование будет работать на мобах)
+  "PORKCHOP": "COOKED_PORKCHOP"
+  "BEEF": "COOKED_BEEF"
+  "CHICKEN": "COOKED_CHICKEN"
+  "RABBIT": "COOKED_RABBIT"
+  "MUTTON": "COOKED_MUTTON"
+  "COD": "COOKED_COD"
+  "SALMON": "COOKED_SALMON"
+  "POTATO": "BAKED_POTATO"
+  # Дерево -> Уголь
+  "OAK_LOG": "CHARCOAL"
+  "BIRCH_LOG": "CHARCOAL"
+  "SPRUCE_LOG": "CHARCOAL"
+  "JUNGLE_LOG": "CHARCOAL"
+  "ACACIA_LOG": "CHARCOAL"
+  "DARK_OAK_LOG": "CHARCOAL"
+  "MANGROVE_LOG": "CHARCOAL"
+  "CHERRY_LOG": "CHARCOAL"
+  "CRIMSON_STEM": "CHARCOAL"
+  "WARPED_STEM": "CHARCOAL"
