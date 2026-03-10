@@ -1,0 +1,42 @@
+loot:
+  mystic:
+    common:
+      default_diamond:
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2586
+          type: DIAMOND
+          amount: 1
+        weight: 100
+      default_iron:
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2586
+          type: IRON_INGOT
+          amount: 5
+        weight: 200
+    rare:
+      default_emerald:
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2586
+          type: EMERALD
+          amount: 2
+        weight: 50
+    mythic:
+      default_netherite:
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2586
+          type: NETHERITE_INGOT
+          amount: 1
+        weight: 10
+  golem:
+    common:
+      default_gold:
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2586
+          type: GOLD_INGOT
+          amount: 3
+        weight: 150
