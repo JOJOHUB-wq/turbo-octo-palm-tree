@@ -1,35 +1,19 @@
-# Имя плагина, отображаемое в списке плагинов
-name: AtheriumEnchants
-# Версия плагина
-version: '3.0'
-# Главный класс, который будет загружен сервером
-main: ua.etherium.AtheriumEnchants
-# Версия API, с которой совместим плагин (1.21 для Minecraft 1.21)
-api-version: '1.21'
-# Автор плагина
-author: oleze_bebidjonov
-# Мягкая зависимость от Vault, плагин загрузится даже если Vault отсутствует
-softdepend: [Vault]
-# Регистрация команд
+name: HHEvents
+version: '${project.version}'
+main: ua.atherium.hhevents.HHEvents
+api-version: 1.13
+authors: [ Oleze_bebidjonov ]
+description: Универсальная система ивентов для 1.16.5
+depend: [ Vault, FastAsyncWorldEdit ]
+
 commands:
-  atheriumenchants:
-    description: Главная команда плагина AtheriumEnchants
-    usage: /<command> <menu|give|enchant|reload>
-    aliases: [ate, ce]
-# Определение прав доступа (permissions)
+  event:
+    description: Основная команда системы ивентов
+    aliases: [ events, hhevent ]
+    permission: hhevents.admin
+    usage: /event
+
 permissions:
-  atheriumenchants.admin:
-    description: Полный доступ ко всем командам плагина.
-    default: op
-  atheriumenchants.menu:
-    description: Разрешает открывать меню зачарований.
-    default: true
-  atheriumenchants.give:
-    description: Разрешает выдавать книги с кастомными зачарованиями.
-    default: op
-  atheriumenchants.enchant:
-    description: Разрешает накладывать кастомные зачарования на предмет в руке.
-    default: op
-  atheriumenchants.reload:
-    description: Разрешает перезагружать конфигурацию плагина.
+  hhevents.admin:
+    description: Полный доступ к командам администратора HHEvents
     default: op
