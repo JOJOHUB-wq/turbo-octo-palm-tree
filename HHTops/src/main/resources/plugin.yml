@@ -1,0 +1,13 @@
+name: HHTops
+version: 1.0.0
+main: ua.hhtops.HHTopsPlugin
+api-version: 1.16
+depend: [Vault]
+commands:
+  hhtops:
+    description: Управление голограммами топов
+    usage: /hhtops movehere <kills|deaths|time|money>
+permissions:
+  hhtops.admin:
+    description: Доступ к управлению плагином HHTops
+    default: op
